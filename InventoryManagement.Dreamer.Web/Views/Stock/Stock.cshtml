@@ -1,0 +1,35 @@
+﻿@model StockMetaData
+<style>
+    html body {
+        height: 85%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+</style>
+
+<div id="StockWrapper" class="MaleDivFullScreen">
+    @(Html.Kendo().Grid<StockMetaData>()
+                .Name("StockMetaData")
+                .Columns(c =>
+                    {
+                        c.Bound(p => p.CompanyName).Width(150);
+                        c.Bound(p => p.BrandName).Width(150);
+                        c.Bound(p => p.ProductName).Width(150);
+                        c.Bound(p => p.SkuName).Width(150).Groupable(false);
+                        c.Bound(p => p.Quantity).Width(150);
+                        c.Bound(p => p.Rate).Width(150);
+                    })
+                .Groupable()
+                .Pageable()
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(r => r.Columns(true))
+                .HtmlAttributes(new { style = "height: 100%;" })
+                .DataSource(d => d
+                                     .Ajax()
+                                     .PageSize(30)
+                                     .Read(read => read.Action("GetAllSku", "Stock"))))
+</div>
+

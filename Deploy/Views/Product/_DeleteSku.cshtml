@@ -1,0 +1,90 @@
+﻿@model SkuMetadata
+@{
+    Layout = null;
+}
+@using (Html.BeginForm())
+{
+    <h4>Are Your Sure Are Your Want To Delete? </h4>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                @Html.LabelFor(x => x.CompanyName)
+            </div>
+            <div class="span9">
+                @Html.DisplayFor(x => x.CompanyName)
+                @Html.HiddenFor(x => x.CompanyId)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                @Html.LabelFor(x => x.BrandName)
+            </div>
+            <div class="span9">
+                @Html.DisplayFor(x => x.BrandName)
+                @Html.HiddenFor(x => x.BrandId)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                @Html.LabelFor(x => x.ProductName)
+            </div>
+            <div class="span9">
+                @Html.DisplayFor(x => x.ProductName)
+                @Html.HiddenFor(x => x.ProductId)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                @Html.LabelFor(x => x.SkuName)
+            </div>
+            <div class="span9">
+                @Html.DisplayFor(x => x.SkuName)
+                @Html.HiddenFor(x => x.SkuId)
+            </div>
+        </div>
+        <div class="row-fluid">
+             <div class="span9">
+                <div id="DeleteErrorMessagess" class="alert-error"></div>
+            </div>
+            <div class="span3">
+                <input type="submit" class="k-button keep-right" value="Delete" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.setDefaults({
+            ignore: ""
+        });
+    });
+
+    $('form').submit(function (e) {
+        $('form').validate().form();
+        var form = $(this);
+        var $errorMessagesContenar = $("#DeleteErrorMessagess");
+        $errorMessagesContenar.empty();
+        ShowWaiting();
+        $.ajax({
+            url: form.attr("action"),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify($('form').serializeJSON()),
+            success: function (result) {
+                if (result.IsError) {
+                    $.each(result.ErrorMessages, function () {
+                        $("<span class='alert-error'>" + this.ErrorMessage + "</span><br/>").appendTo($errorMessagesContenar);
+                    });
+                } else {
+                    $("#SkuMetadata").data("kendoGrid").dataSource.read();
+                    $(".ui-dialog-titlebar-close").click();
+                }
+                HideWaiting();
+                return;
+            }
+        });
+        e.preventDefault();
+    });
+</script>

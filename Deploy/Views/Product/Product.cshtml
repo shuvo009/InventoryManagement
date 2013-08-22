@@ -1,0 +1,136 @@
+﻿@model SkuMetadata
+
+<style>
+    html body {
+        height: 60%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+</style>
+
+<button id="CreateSKU" class="k-button">New SKU</button>
+<div class="MaleDivFullScreen">
+    @(Html.Kendo().Grid<SkuMetadata>()
+                .Name("SkuMetadata")
+                .Columns(colums =>
+                    {
+                        colums.Bound(p => p.CompanyName).Width(200);
+                        colums.Bound(p => p.SkuId).Visible(false);
+                        colums.Bound(p => p.BrandName).Width(200);
+                        colums.Bound(p => p.ProductName).Width(200);
+                        colums.Bound(p => p.SkuName).Groupable(false).Width(200);
+                        colums.Command(command =>
+                            {
+                                command.Custom("EditSku").Text("Edit").Click("skuEdit");
+                                command.Custom("DeleteSku").Text("Delete").Click("skuDelete");
+                            }).Width(160);
+                    })
+                .Selectable(selectable => selectable
+                                              .Mode(GridSelectionMode.Single)
+                                              .Type(GridSelectionType.Row))
+                .Groupable()
+                .Pageable()
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(r => r.Columns(true))
+                .HtmlAttributes(new { style = "height: 100%;" })
+                .DataSource(dataSource =>
+                            dataSource
+                                .Ajax()
+                                .PageSize(30)
+                                .Read(read => read.Action("GetAllProducts", "Product"))))
+</div>
+
+<div id="CreatenewSku" title="New SKU" style="overflow: hidden;"></div>
+<div id="editSelectedSKU" title="Edit SKU" style="overflow: hidden;"></div>
+<div id="deleteSelectedSKU" title="Delete SKU" style="overflow: hidden;"></div>
+
+
+<script>
+    $("#CreatenewSku").dialog({
+        title: 'New SKU',
+        autoOpen: false,
+        resizable: false,
+        height: 375,
+        width: 400,
+        show: { effect: 'drop', direction: "up" },
+        modal: true,
+        draggable: true,
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
+    $("#editSelectedSKU").dialog({
+        title: 'Edit SKU',
+        autoOpen: false,
+        resizable: false,
+        height: 355,
+        width: 400,
+        show: { effect: 'drop', direction: "up" },
+        modal: true,
+        draggable: true,
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
+    $("#deleteSelectedSKU").dialog({
+        title: 'Delete SKU',
+        autoOpen: false,
+        resizable: false,
+        height: 355,
+        width: 400,
+        show: { effect: 'drop', direction: "up" },
+        modal: true,
+        draggable: true,
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
+    $("#CreateSKU").click(function (e) {
+        ShowWaiting();
+        $.ajax({
+            url: "@Url.Action("NewSku")",
+            type: "GET",
+        })
+          .done(function (result) {
+              HideWaiting();
+              $("#CreatenewSku").html(result).dialog("open");
+          });
+        return false;
+    });
+
+    skuEdit = function (e) {
+        ShowWaiting();
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: "@Url.Action("EditSku")" + "?id=" + dataItem.SkuId,
+            type: "GET",
+        })
+          .done(function (result) {
+              HideWaiting();
+              $("#editSelectedSKU").html(result).dialog("open");
+          });
+        return false;
+    };
+
+    skuDelete = function (e) {
+        e.preventDefault();
+        ShowWaiting();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: "@Url.Action("DeleteSku")" + "?id=" + dataItem.SkuId,
+            type: "GET",
+        })
+          .done(function (result) {
+              HideWaiting();
+              $("#deleteSelectedSKU").html(result).dialog("open");
+          });
+        return false;
+    };
+</script>

@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Company Information";
+}
+
+<script src="~/Scripts/Kendo/jquery.min.js"></script>
+<script src="~/Scripts/Kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/Kendo/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+
+<link href="~/Content/Kendo/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/Kendo/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Content/Kendo/kendo.metro.min.css" rel="stylesheet" />
+
+
+
+
+<div>
+    @(Html.Kendo().Grid<Company>()
+          .Name("CompanyGrid")
+          .HtmlAttributes(new{style="Id=CompanyGrid"})
+          .Columns(c => 
+              { 
+                  c.Bound(x => x.CompanyName);
+                  c.Bound(x => x.Id).Hidden();
+              })
+          .Pageable()
+          .Scrollable()
+          .Filterable()
+          .Selectable(s=>s.Mode(GridSelectionMode.Single).Type(GridSelectionType.Row))
+          .Events(e=>e.Change("companyGridRowSelectionChange"))
+          .DataSource(d => d.Ajax()
+                            .PageSize(20)
+                            .Read(r=>r.Action("GetAllCompanys","Company"))))
+</div>
+
+<div data-ng-app="" data-ng-controller="copmanyController">
+    <input type="hidden" data-ng-model="company.id"/>
+    <span>
+        <label>Company Name</label>
+        <input type="text" data-ng-model="company.Name"/>
+    </span>
+    
+    <span>
+        <input type="button" value="Save" data-ng-click="save()"/>
+    </span>
+</div>
+
+<script>
+    
+    function companyGridRowSelectionChange(e) {
+        var grid = e.sender;
+        var selectedRow = grid.select();
+        var dataItem = grid.dataItem(selectedRow);
+        angular.element(document.getElementById('CompanyGrid')).scope().getData(dataItem.Id, dataItem.Name);
+        alert(dataItem.Id);
+        
+    }
+
+    function companyController($scope, $http) {
+
+        //$http.get('/api/ContactApi/').success(function(data) {
+        //    $scope.contacts = data;
+        // });
+        
+        function getData(id, name) {
+            $scope.company.Name = name;
+            $scope.id.Name = id;
+        }
+    }
+</script>

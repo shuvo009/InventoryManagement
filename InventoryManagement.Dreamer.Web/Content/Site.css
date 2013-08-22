@@ -1,0 +1,164 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+#loginForm {
+    position: absolute;
+    width: 320px;
+    top: 50%;
+    left: 50%;
+    margin-left: -160px;
+    margin-top: -130px;
+}
+
+    #loginForm input[type="text"] {
+        width: 100%;
+        height: 30px;
+    }
+
+    #loginForm input[type="password"] {
+        height: 30px;
+        width: 100%;
+    }
+
+    #loginForm input[type="submit"] {
+        margin-left: 110px;
+        width: 80px;
+    }
+
+    #loginForm ul {
+        margin: 0;
+    }
+
+    #loginForm li {
+        display: inline;
+        list-style: none;
+    }
+
+.keep-right {
+    float: right;
+}
+
+.keep-left {
+    float: left;
+}
+
+a.logout {
+    background: transparent url('../Content/Images/Logout-icon.png') no-repeat center right;
+}
+
+a.home {
+    background: transparent url('../Content/Images/Home-icon.png') no-repeat center right;
+}
+
+a.menu-icon-size {
+    display: block;
+    width: 64px;
+    height: 64px;
+}
+
+.MaleDivFullScreen {
+   min-height: 70%;
+        height: 85%;
+        /*width: 88%;*/
+        overflow: hidden;
+        position: absolute;
+}
+
+.WaitingBarCenter {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    background: #232323;
+    float: left;
+    margin-top: 0;
+    opacity: 0.5;
+    position: absolute;
+    bottom: 1px;
+    z-index: 9999;
+}
+
+.watingDivInCenter {
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -10px;
+    position: absolute;
+}
+
+.textbox-height {
+    height: 30px;
+}
+
+.button-width{
+    width: 100px !important;
+}
+ #StockWrapper {
+        min-height: 70%;
+        height: 85%;
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+    }
+ .keep-margin-top {
+     margin-top: 5px !important;
+ }

@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Dreamer.Entitys", "InventoryManagement.Dreamer.Entitys\InventoryManagement.Dreamer.Entitys.csproj", "{4AC8C888-86BE-461F-82C2-B4C8201DA25B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Dreamer.Domain", "InventoryManagement.Dreamer.Domain\InventoryManagement.Dreamer.Domain.csproj", "{220C1AA9-E8D2-4625-AABF-6F9DC8F12701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyDataGenerator", "DummyDataGenerator\DummyDataGenerator.csproj", "{659F2227-1418-4F3D-99D9-954A3660F52E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Dreamer.Web", "InventoryManagement.Dreamer.Web\InventoryManagement.Dreamer.Web.csproj", "{8C8A43F6-BD76-49B9-96D4-8C633D8B8326}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Dreamer.Web.Tests", "InventoryManagement.Dreamer.Web.Tests\InventoryManagement.Dreamer.Web.Tests.csproj", "{5C33D80E-36D8-43F0-B4F4-A8F2E7104252}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://wrdreamer.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DummyDataGenerator\\DummyDataGenerator.csproj
+		SccProjectName1 = DummyDataGenerator
+		SccLocalPath1 = DummyDataGenerator
+		SccProjectUniqueName2 = InventoryManagement.Dreamer.Domain\\InventoryManagement.Dreamer.Domain.csproj
+		SccProjectName2 = InventoryManagement.Dreamer.Domain
+		SccLocalPath2 = InventoryManagement.Dreamer.Domain
+		SccProjectUniqueName3 = InventoryManagement.Dreamer.Entitys\\InventoryManagement.Dreamer.Entitys.csproj
+		SccProjectName3 = InventoryManagement.Dreamer.Entitys
+		SccLocalPath3 = InventoryManagement.Dreamer.Entitys
+		SccProjectUniqueName4 = InventoryManagement.Dreamer.Web\\InventoryManagement.Dreamer.Web.csproj
+		SccProjectName4 = InventoryManagement.Dreamer.Web
+		SccLocalPath4 = InventoryManagement.Dreamer.Web
+		SccProjectUniqueName5 = InventoryManagement.Dreamer.Web.Tests\\InventoryManagement.Dreamer.Web.Tests.csproj
+		SccProjectName5 = InventoryManagement.Dreamer.Web.Tests
+		SccLocalPath5 = InventoryManagement.Dreamer.Web.Tests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AC8C888-86BE-461F-82C2-B4C8201DA25B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC8C888-86BE-461F-82C2-B4C8201DA25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AC8C888-86BE-461F-82C2-B4C8201DA25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC8C888-86BE-461F-82C2-B4C8201DA25B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220C1AA9-E8D2-4625-AABF-6F9DC8F12701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220C1AA9-E8D2-4625-AABF-6F9DC8F12701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220C1AA9-E8D2-4625-AABF-6F9DC8F12701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220C1AA9-E8D2-4625-AABF-6F9DC8F12701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659F2227-1418-4F3D-99D9-954A3660F52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659F2227-1418-4F3D-99D9-954A3660F52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659F2227-1418-4F3D-99D9-954A3660F52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659F2227-1418-4F3D-99D9-954A3660F52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8A43F6-BD76-49B9-96D4-8C633D8B8326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8A43F6-BD76-49B9-96D4-8C633D8B8326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8A43F6-BD76-49B9-96D4-8C633D8B8326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8A43F6-BD76-49B9-96D4-8C633D8B8326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C33D80E-36D8-43F0-B4F4-A8F2E7104252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C33D80E-36D8-43F0-B4F4-A8F2E7104252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C33D80E-36D8-43F0-B4F4-A8F2E7104252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C33D80E-36D8-43F0-B4F4-A8F2E7104252}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

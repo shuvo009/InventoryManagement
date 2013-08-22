@@ -1,0 +1,92 @@
+﻿body {
+    background: whitesmoke;
+}
+
+.MakeLeft {
+    float: left;
+    height: 150px;
+}
+
+.LeftDivWidth {
+    width: 180px;
+    text-align: center;
+    background: url('') no-repeat center center;
+}
+
+.RightDivWidth {
+    width: 120px;
+    text-align: center;
+    top: 50%;
+    height: 30px;
+    margin-top: -15px;
+    position: relative;
+    color: white;
+    font-size: large;
+}
+
+.ImagePosition {
+    width: 170px;
+    height: 170px;
+    top: 50%;
+    left: 50%;
+    margin-top: -85px;
+    margin-left: -85px;
+}
+
+.slide {
+    /*background: bisque;*/
+    width: 300px;
+    height: 150px;
+    
+}
+
+.KeepSideBySide {
+    float: left;
+    margin: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.keepUpAndDown {
+    float: left;
+    margin: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#DashboardContiner {
+    position: absolute;
+    top: 50%;
+    margin-left: 100px;
+    margin-top: -160px;   
+}
+div:hover
+{
+    cursor: pointer;
+}
+
+#Product {
+    background: blueviolet;
+}
+#Stock {
+    background: cadetblue;
+}
+
+#PurchaseHistory {
+    background: chocolate;
+}
+#Purchase {
+    background: cornflowerblue;
+}
+#Sales {
+    background: darkgoldenrod;
+}
+#SalesHistory {
+    background: darkolivegreen;
+}
+#CreateAccount {
+    background: darksalmon
+}
+#ChangePassword {
+    background: darkslateblue;
+}

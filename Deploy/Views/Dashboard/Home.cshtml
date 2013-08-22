@@ -1,0 +1,70 @@
+﻿
+@Styles.Render("~/Content/Dashboard")
+@{
+    ViewBag.Title = "Home";
+}
+
+<div id="DashboardContiner">
+    <div class="keepUpAndDown">
+        <div id="Product" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/Product.png" data-first-text="Product">
+        </div>
+
+        <div id="Stock" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/Stock.png" data-first-text="Stock">
+        </div>
+
+        <div id="PurchaseHistory" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/PurchaseHistory.png" data-first-text="Purchase History">
+        </div>
+        <div id="CreateAccount" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/UserAdd.png" data-first-text="Create User Account">
+        </div>
+
+    </div>
+    <br />
+    <div class="keepUpAndDown">
+        <div id="Purchase" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/Purchase.png" data-first-text="Purchase">
+        </div>
+
+        <div id="Sales" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/Sales.png" data-first-text="Sales">
+        </div>
+
+        <div id="SalesHistory" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/SalesHistory.png" data-first-text="Sales History">
+        </div>
+        <div id="ChangePassword" class="KeepSideBySide" data-metrotile="true" data-first-image="/Content/Images/CahngePassword.png" data-first-text="Change Password">
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+}
+
+<script type="text/javascript">
+
+    $("#Product").click(function () {
+        document.location.href = "@Url.Action("Product","Product")";
+    });
+
+    $("#Stock").click(function () {
+        document.location.href = "@Url.Action("Stock","Stock")";;
+    });
+
+    $("#Purchase").click(function () {
+        document.location.href = "@Url.Action("Purchase","Transaction")";
+    });
+
+    $("#Sales").click(function () {
+        document.location.href = "@Url.Action("Sales","Transaction")";;
+    });
+
+    $("#PurchaseHistory").click(function () {
+        document.location.href = "@Url.Action("Purchase","History")";;
+    });
+
+    $("#SalesHistory").click(function () {
+        document.location.href = "@Url.Action("Sales","History")";;
+    });
+
+    $("#ChangePassword").click(function () {
+        document.location.href = "@Url.Action("Manage","Account")";;
+    });
+
+</script>

@@ -1,0 +1,121 @@
+﻿@model TransactionMetadata
+@{
+    ViewBag.Title = "Purchase";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="offset5 span4">
+            @if (Model.IsSales)
+            {
+                <h2>sales</h2>
+            }
+            else
+            {
+                <h2>Purchase</h2>
+            }
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            @using (Html.BeginForm("TransactionCompleate", "Transaction"))
+            {
+                <div class="row-fluid">
+                    <div class="span4">
+                        @Html.LabelFor(x => x.InvoiceNumber)
+                        @Html.TextBoxFor(x => x.InvoiceNumber, new { @class = "textbox-height" })
+                        @Html.ValidationMessageFor(x => x.InvoiceNumber)
+                    </div>
+                    <div class="span4">
+                        @Html.LabelFor(x => x.TransactionDate)
+                        @(Html.Kendo().DatePickerFor(x => x.TransactionDate)
+                              .Name("TransactionDate")
+                              .Value(DateTime.Today)
+                              .HtmlAttributes(new { style = "width:150px" }))
+                    </div>
+                    <div class="span4">
+                        <br />
+                        <input id="AddSKU" type="submit" name="command" class="k-button button-width keep-right" value="Add SKU" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        @(Html.Kendo().Grid<StockMetaData>()
+                              .Name("StockMetaData")
+                              .Columns(c =>
+                                  {
+                                      c.Bound(p => p.CompanyName).Width(150);
+                                      c.Bound(p => p.BrandName).Width(150);
+                                      c.Bound(p => p.ProductName).Width(150);
+                                      c.Bound(p => p.SkuName).Width(150).Groupable(false)
+                                       .ClientFooterTemplate("Total Product: #=count#");
+                                      c.Bound(p => p.Quantity).Width(150).Groupable(false);
+                                      c.Bound(p => p.Rate).Width(150).Groupable(false);
+                                      c.Bound(p => p.Amount).Width(150).Groupable(false)
+                                       .ClientFooterTemplate("Total Amount: #=sum#");
+                                      c.Command(p => p.Custom("Delete").Text("Delete").Click("skuDelete")).Width(150);
+                                  })
+                              .Groupable()
+                              .Pageable()
+                              .Sortable()
+                              .Scrollable()
+                              .Filterable()
+                              .Resizable(r => r.Columns(true))
+                              .HtmlAttributes(new { style = "height: 100%;" })
+                              .DataSource(d => d
+                                                   .Ajax()
+                                                   .PageSize(30)
+                                                   .Aggregates(a =>
+                                                       {
+                                                           a.Add(p => p.SkuName).Count();
+                                                           a.Add(p => p.Amount).Sum();
+                                                       })
+                                                   .Read(read => read.Action("GetTransactionAbleSku", "Transaction"))))
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <input type="submit" class="k-button keep-right button-width" name="command" value="Cancel" />
+                        <input type="submit" class="k-button keep-right button-width" name="command" value="Save" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="SkuDeleteConformMessagess" style="overflow: hidden">
+</div>
+<script type="text/javascript">
+    $("#AddSKU").click(function () {
+        document.location.href = "@Url.Action("SkuList", "Transaction")";
+    });
+
+    skuDelete = function (e) {
+        ShowWaiting();
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: "@Url.Action("DeleteSkuFromTransction")" + "?skuId=" + dataItem.SkuId,
+            type: "GET",
+        })
+          .done(function (result) {
+              HideWaiting();
+              $("#SkuDeleteConformMessagess").html(result).dialog('open');
+          });
+
+        return false;
+    };
+
+    $("#SkuDeleteConformMessagess").dialog({
+        title: 'SKU',
+        autoOpen: false,
+        resizable: false,
+        height: 330,
+        width: 400,
+        show: { effect: 'drop', direction: "up" },
+        modal: true,
+        draggable: true,
+        close: function (event, ui) {
+            $(this).dialog('close');
+        },
+    });
+</script>

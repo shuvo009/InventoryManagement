@@ -1,0 +1,87 @@
+﻿@model StockMetaData
+
+<style>
+    html body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+</style>
+<div id="StockWrapper">
+    <div>
+        @{
+            switch ((RedirectState)ViewBag.RedirectState)
+            {
+                case RedirectState.Purchase:
+            @Html.ActionLink("Finish", "Purchase", null,    new { @class = "k-button" });
+                                                                                     break;
+                case RedirectState.Sales:
+            @Html.ActionLink("Finish", "Sales", null, new { @class = "k-button" });
+                                                                                  break;
+                case RedirectState.Dashboard:
+            @Html.ActionLink("Finish", "Home", "Dashboard", null, new { @class = "k-button" });
+                                                                                              break;
+            }
+        }
+    </div>
+
+
+    @(Html.Kendo().Grid<StockMetaData>()
+          .Name("StockMetaData")
+          .Columns(c =>
+          {
+              c.Bound(p => p.CompanyName).Width(150);
+              c.Bound(p => p.BrandName).Width(150);
+              c.Bound(p => p.ProductName).Width(150);
+              c.Bound(p => p.SkuName).Width(150).Groupable(false);
+              c.Bound(p => p.Quantity).Width(150);
+              c.Bound(p => p.Rate).Width(150);
+              c.Command(a => a.Custom("Add").Text("Add").Click("skuEdit")).Width(150);
+          })
+          .Groupable()
+          .Pageable()
+          .Sortable()
+          .Scrollable()
+          .Filterable()
+          .Resizable(r => r.Columns(true))
+          .HtmlAttributes(new { style = "height: 100%;" })
+          .DataSource(d => d
+                               .Ajax()
+                               .PageSize(30)
+                               .Read(read => read.Action("GetAllStock", "Transaction"))))
+</div>
+<div id="AddToTransction" style="overflow: hidden;">
+</div>
+
+<script type="text/javascript">
+    skuEdit = function (e) {
+        ShowWaiting();
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: "@Url.Action("AddSku")" + "?skuId=" + dataItem.SkuId,
+            type: "GET",
+        })
+          .done(function (result) {
+              HideWaiting();
+              $("#AddToTransction").html(result).dialog('open');
+          });
+
+        return false;
+    };
+
+    $("#AddToTransction").dialog({
+        title: 'SKU',
+        autoOpen: false,
+        resizable: false,
+        height: 400,
+        width: 400,
+        show: { effect: 'drop', direction: "up" },
+        modal: true,
+        draggable: true,
+        close: function (event, ui) {
+            $(this).dialog('close');
+        },
+    });
+</script>

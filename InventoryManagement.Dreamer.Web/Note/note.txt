@@ -1,0 +1,5 @@
+﻿http://docs.kendoui.com/getting-started/using-kendo-with/aspnet-mvc/introduction
+
+
+
+.ToolBar(toolbar => toolbar.Template("<a class='k-button k-button-icontext k-grid-add' href='#'><span class='k-icon k-add'></span>Add new record</a>"))

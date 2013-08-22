@@ -1,0 +1,154 @@
+﻿@model SkuMetadata
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    function filterBrand() {
+        return { id: $("#CompanyId").val() };
+    }
+
+    function filterProduct() {
+        return { id: $("#BrandId").val() };
+    }
+
+    function filerSku() {
+        return { id: $("#ProductId").val() };
+    }
+</script>
+
+<style>
+    label {
+        float: left;
+        width: 150px;
+    }
+
+    span[class="k-widget k-combobox k-header"] {
+        margin-bottom: 20px;
+    }
+</style>
+@using (Html.BeginForm("NewSku", "Product"))
+{
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span4">
+                <label>Company Name :</label>
+            </div>
+            <div class="span8">
+                @(Html.Kendo().ComboBoxFor(x => x.CompanyId)
+                      .Name("CompanyId")
+                      .DataValueField("Id")
+                      .DataTextField("CompanyName")
+                      .Placeholder("Select Company")
+                      .Filter(FilterType.Contains)
+                      .DataSource(source => source.Read(read => read.Action("GetAllCompanys", "Product"))))
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span4">
+                <label>Brand Name :</label>
+            </div>
+            <div class="span8">
+                @(Html.Kendo().ComboBoxFor(x => x.BrandId)
+                      .Name("BrandId")
+                      .DataTextField("BrandName")
+                      .DataValueField("Id")
+                      .Placeholder("Select Brand")
+                      .DataSource(source => source.Read(read => read.Action("GetAllBrandsByCompany", "Product").Data("filterBrand")).ServerFiltering(true))
+                      .AutoBind(false)
+                      .CascadeFrom("company"))
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span4">
+                <label>Product Name :</label>
+            </div>
+            <div class="span8">
+                @(Html.Kendo().ComboBoxFor(x => x.ProductId)
+                      .HtmlAttributes(new { style = "Id=ProductComboBox" })
+                      .Name("ProductId")
+                      .DataTextField("ProductName")
+                      .DataValueField("Id")
+                      .Placeholder("Select Product")
+                      .DataSource(source => source.Read(read => read.Action("GetAllProductsByBrand", "Product").Data("filterProduct")).ServerFiltering(true))
+                      .AutoBind(false)
+                      .CascadeFrom("brand"))
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span4">
+                <label>Sku Name :</label>
+            </div>
+            <div class="span8">
+                @(Html.Kendo().ComboBoxFor(x => x.SkuId)
+                  .Name("SkuId")
+                  .HtmlAttributes(new { style = "Id=SkuComboBox" })
+                  .DataTextField("SkuName")
+                  .DataValueField("Id")
+                  .Placeholder("Select Sku")
+                  .DataSource(source => source.Read(read => read.Action("GetAllSkusByProduct", "Product").Data("filerSku")).ServerFiltering(true))
+                  .AutoBind(false)
+                  .CascadeFrom("product"))
+            </div>
+        </div>
+
+        @Html.HiddenFor(x => x.CompanyName)
+        @Html.HiddenFor(x => x.BrandName)
+        @Html.HiddenFor(x => x.ProductName)
+        @Html.HiddenFor(x => x.SkuName)
+
+        <div class="row-fluid">
+            <div class="span9">
+                <div id="ErrorMessagess" class="alert-error"></div>
+            </div>
+            <div class="span3">
+                <input type="submit" class="k-button keep-right" value="Update" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.setDefaults({
+            ignore: ""
+        });
+    });
+
+    $('form').submit(function (e) {
+        $("#CompanyName").val($("#CompanyId").data("kendoComboBox").text());
+        $("#BrandName").val($("#BrandId").data("kendoComboBox").text());
+        $("#ProductName").val($("#ProductId").data("kendoComboBox").text());
+        $("#SkuName").val($("#SkuId").data("kendoComboBox").text());
+        $('form').validate().form();
+        var form = $(this);
+        var $errorMessagesContenar = $("#ErrorMessagess");
+        $errorMessagesContenar.empty();
+        ShowWaiting();
+        $.ajax({
+            url: form.attr("action"),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify($('form').serializeJSON()),
+            success: function (result) {
+                if (result.IsError) {
+                    $.each(result.ErrorMessages, function () {
+                        $("<span class='alert-error'>" + this.ErrorMessage + "</span><br/>").appendTo($errorMessagesContenar);
+                    });
+                } else {
+                    $("#SkuMetadata").data("kendoGrid").dataSource.read();
+                    $(".ui-dialog-titlebar-close").click();
+                }
+                HideWaiting();
+                return;
+            }
+        });
+        e.preventDefault();
+    });
+</script>
+
+
